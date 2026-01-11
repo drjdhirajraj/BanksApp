@@ -20,7 +20,7 @@ public class CustomFilter {
             auth.requestMatchers("/balance")
                     .hasAuthority("VIEW_BALANCE")
                     .requestMatchers("/loans").hasAuthority("VIEW_LOANS")
-                    .requestMatchers("/cards").hasAuthority("VIEW_CARDS")
+                    .requestMatchers("/cards").authenticated()
                     .requestMatchers("/viewBanalce")
                     .hasAnyAuthority("VIEW_BALANCE", "VIEW_LOANS", "VIEW_CARDS")
                     .requestMatchers("/login", "/register","/getAllData").permitAll()

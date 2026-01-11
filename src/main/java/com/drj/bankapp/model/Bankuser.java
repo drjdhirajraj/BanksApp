@@ -1,6 +1,7 @@
 package com.drj.bankapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class Bankuser {
 
     @OneToMany(mappedBy = "bankuser",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 
+    @JsonIgnore
     private Set<BankUserAuthority> bankUserAuthorities;
 
 
@@ -31,7 +33,6 @@ public class Bankuser {
         return "Bankuser{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", bankUserAuthorities=" + bankUserAuthorities +
                 '}';
     }
 

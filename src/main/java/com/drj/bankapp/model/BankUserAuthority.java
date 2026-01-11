@@ -1,6 +1,7 @@
 package com.drj.bankapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class BankUserAuthority {
     private String bankAuthority;
 
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "userid")
     private Bankuser bankuser;
@@ -39,7 +41,6 @@ public class BankUserAuthority {
     public String toString() {
         return "BankUserAuthority{" +
                 "bankAuthority='" + bankAuthority + '\'' +
-                ", bankuser=" + bankuser +
                 '}';
     }
 }

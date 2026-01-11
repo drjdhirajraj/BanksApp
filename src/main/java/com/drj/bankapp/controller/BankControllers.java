@@ -5,9 +5,12 @@ import com.drj.bankapp.DTO.BankUserRecord;
 import com.drj.bankapp.model.BankUserAuthority;
 import com.drj.bankapp.model.Bankuser;
 import com.drj.bankapp.repos.UsersRepoService;
+import com.drj.bankapp.service.CardsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,10 +25,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BankControllers {
 
+
+    @Autowired
+    CardsService cardsService;
+
+
+
     private final UsersRepoService usersRepoService;
     private final PasswordEncoder encoder;
 
     @GetMapping("/getAllData")
+    @PostFilter("filterObject.username == authentication.principal.username  ")
     public List<Bankuser> login(){
         return usersRepoService.findAll();
     }
@@ -64,8 +74,15 @@ public class BankControllers {
 
     @GetMapping("/cards")
     public ResponseEntity<String> getCardData(){
+
+
+        String card = cardsService.getCard();
         return ResponseEntity.status(HttpStatus.FOUND).body("12233/3443/9393/0193");
     }
+
+//    @PreAuthorize("hasRole('VIEW_CARDS')")
+//    @PostAuthorize("!returnObject.toString().equals('123456')")
+
 
 
     @GetMapping("/balance")
